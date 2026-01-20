@@ -124,6 +124,23 @@ Here are a few ones that I’m aware of:
 - Invent a new attribute
 - WebMCP: https://github.com/webmachinelearning/webmcp/issues/22 
 
+
+### Mediation: `conditional`
+
+In this variation, we use the `mediation="conditional"` parameter to let the agent operate in the unresolved promise.
+
+```javascript
+const {token} = await navigator.credentials.get({
+  mediation: "conditional",
+  identity: { /** ... params ... */ }
+});
+```
+
+Problem: 
+
+- Reveals to the website that we are operating under an assistant
+- https://github.com/schemaorg/schemaorg/issues/4507#issuecomment-3740859356
+
 ## Alternatives Considered
 
 ### Overload WWW-Authenticate
@@ -157,18 +174,3 @@ Problem:
 
 - Reveals to the website that we are operating under an assistant
 
-### Mediation: `agentic`
-
-In this variation, we extend the “mediation” parameter to support an “agentic” one.
-
-```javascript
-const {token} = await navigator.credentials.get({
-  mediation: "agentic",
-  identity: { /** ... params ... */ }
-});
-```
-
-Problem: 
-
-- Reveals to the website that we are operating under an assistant
-- https://github.com/schemaorg/schemaorg/issues/4507#issuecomment-3740859356
