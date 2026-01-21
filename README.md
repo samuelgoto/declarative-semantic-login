@@ -46,25 +46,6 @@ When agents get to a website and want to login the user to it, they need to firs
 
 (see alternatives considered for things like a .well-known file and other ways we can accomplish this)
 
-### Usernames/Passwords (or Passkeys)
-
-```html
-<form itemscope itemtype="https://schema.org/LoginAction">
-  <input type="email" autocomplete="username">
-  <input type="password" autocomplete="webauthn">
-  <button itemprop="target" type="submit">Login</button>
-</div>
-```
-
-### OTPs
-
-```html
-<form itemscope itemtype="https://schema.org/LoginAction">
-  <input itemprop="otp" autocomplete="one-time-code">
-  <button>Login</button>
-</div>
-```
-
 ### Federation
 
 LoginAction has a property called `federated` which describes what the FedCM request would be.
@@ -78,26 +59,6 @@ The semantics of this annotation is that an assisted browser would be able to as
   <data itemprop="target" value="js_callback">
   <button>Sign-in with X</button>
 </div>
-```
-
-### Password Reset Forms
-
-```html
-<form itemscope itemtype="https://schema.org/ResetPasswordAction">
-  <input itemprop="username" type="email">
-  <button itemprop="target" type="submit">Reset password</button>
-</div>
-```
-
-### Extensibility
-
-```html
-<form itemscope itemtype="https://schema.org/Action">
-  <data itemprop="name" value="My custom form that does a bunch of stuff">
-  <data itemprop="description" 
-    value="This form creates an account for the user and sends them a gift from Macys">
-  <input itemprop="macys" name="macyscard">
-</form>
 ```
 
 ## Alternatives Under Consideration
@@ -174,3 +135,45 @@ Problem:
 
 - Reveals to the website that we are operating under an assistant
 
+# Open Questions
+
+Should this support also Passwords/Passkeys too?
+
+### Usernames/Passwords (or Passkeys)
+
+```html
+<form itemscope itemtype="https://schema.org/LoginAction">
+  <input type="email" autocomplete="username">
+  <input type="password" autocomplete="webauthn">
+  <button itemprop="target" type="submit">Login</button>
+</div>
+```
+
+### OTPs
+
+```html
+<form itemscope itemtype="https://schema.org/LoginAction">
+  <input itemprop="otp" autocomplete="one-time-code">
+  <button>Login</button>
+</div>
+```
+
+### Password Reset Forms
+
+```html
+<form itemscope itemtype="https://schema.org/ResetPasswordAction">
+  <input itemprop="username" type="email">
+  <button itemprop="target" type="submit">Reset password</button>
+</div>
+```
+
+### Extensibility
+
+```html
+<form itemscope itemtype="https://schema.org/Action">
+  <data itemprop="name" value="My custom form that does a bunch of stuff">
+  <data itemprop="description" 
+    value="This form creates an account for the user and sends them a gift from Macys">
+  <input itemprop="macys" name="macyscard">
+</form>
+```
