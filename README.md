@@ -110,10 +110,13 @@ Problem:
   "@context": "https://schema.org",
   "@type": "LoginAction",
   "federation": {
-    "configURL": "https://idp.example/config.json",
-    "clientId": "1234",
-    "nonce": "4567",
-    "fields": ["email", "name", "picture"],
+    "providers": [{
+      "@type": "FederatedLoginProvider",
+      "configURL": "https://idp.example/config.json",
+      "clientId": "1234",
+      "nonce": "4567",
+      "fields": ["email", "name", "picture"],
+     }]
   },
 }
 ```
