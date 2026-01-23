@@ -37,9 +37,7 @@ When agents get to a website and want to login the user to it, they need to firs
 
 ### Federation
 
-LoginAction has a property called `federated` which describes what the FedCM request would be.
-
-The semantics of this annotation is that an assisted browser would be able to assume that “this is social login button”, and that “clicking on it” (which makes it indistinguishable from) would lead to an equivalent FedCM request.
+LoginAction has a property called `federated` which describes what the FedCM request would be:
 
 ```html
 <script type="application/ld+json">
