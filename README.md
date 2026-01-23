@@ -129,8 +129,7 @@ document.addEventListener("login", ({token}) => login(token));
 In this variation we’d support a declarative request made via HTTP headers, like WWW-Authenticate or introduce a few one:
 
 ```
-Federated-Authentication: 
-  client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\""
+WWW-Authenticate: Federated; client_id="1234", config_url="https://idp.example/fedcm.json"
 ```
 
 Cons:
