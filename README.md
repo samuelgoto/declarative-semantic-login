@@ -123,7 +123,7 @@ Problem:
 </script>
 ```
 
-The result of the action gets returned as a DOM event:
+The invocation of the action occurs via a DOM event:
 
 ```javascript
 document.addEventListener("action", ({type, federation: {token}}) => login(token));
