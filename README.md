@@ -101,6 +101,17 @@ Along the lines of the [`<search>`](https://developer.mozilla.org/en-US/docs/Web
 </login>
 ```
 
+### ARIA `role="login"`
+
+This is a variation to augument `role` with an additional landmak, `login`, akin to [`search`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role):
+
+```html
+<span role="login">
+  <!-- how would we encode the rest of the FedCM parameters in the ARIA parameters? maybe that's not right? -->
+  Sign-in with X
+</span>
+```
+
 ### Mediation: `conditional`
 
 In this variation, we use the `mediation="conditional"` parameter to let the agent operate in the unresolved promise.
