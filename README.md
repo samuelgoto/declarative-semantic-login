@@ -23,19 +23,17 @@ There are probably a few conflicting goals, but here are a few that occur to me:
 
 ## Proposal
 
-There are many serializations and ontologies under consideration, but just to fix on something, let’s start with a proposal to extend https://schema.org/LoginAction.
+There are many serializations and ontologies under consideration (see below), but just to fix on something, let’s start with a proposal to introduce a `<login>` element comparable to [`<geolocation>`](https://github.com/WICG/PEPC/blob/main/geolocation_explainer.md), `<search>` and `<main>`.
 
-### Login page discovery
-
-When agents get to a website and want to login the user to it, they need to first find the login page in the first place. This often involves a series of heuristics and computer vision, but the developer can help the agent find it with the following convention:
+Like `<geolocation>` and unlike `<search>` and `<main>`, `<login>` is a declarative syntactic sugar over an JS imperative API, in this case the `navigator.credentials.get()` API. Unlike `<geolocation>` but like `<search>` and `<main>`, `<login>` renders the content from its inner children (rather than a browser provided content).
 
 ```html
-<link rel="login" href="login.html">
+<login type="federated">
+  <a href="https://idp.example/oauth?...">Sign-in with IdP</a>
+</login>
 ```
 
-(see alternatives considered for things like a .well-known file and other ways we can accomplish this)
-
-### Federation
+And a fully expanded form:
 
 ```html
 <login type="federated" 
@@ -43,6 +41,19 @@ When agents get to a website and want to login the user to it, they need to firs
   clientId="1234" 
   configURL="https://idp.example/config.json">
     <a href="https://idp.example/oauth?...">Sign-in with IdP</a>
+</login>
+```
+
+And here is what a webauthn element could look like:
+
+```html
+<login type="webauthn"
+   onselection="callback"
+   challenge="1234"
+   rpId="example.com"
+   userVerification="preferred"
+   timeout="60000">
+  <span>Sign-in with a Passkey</span>
 </login>
 ```
 
@@ -71,28 +82,6 @@ Here are a few ones that I’m aware of:
  
 Here are a few compelling variations that we are actively exploring:
 
-### `<permission type="login">`
-
-We could extend the [PEPC element](https://github.com/WICG/PEPC/blob/main/explainer.md) to introduce a `type="login"` parameter.
-
-```html
-<permission type="login" federation="clientId='1234', configURL='https://idp.example/config.json'">
-   <a href="https://idp.example/oauth?...">Sign-in with IdP</a>  
-</permission>
-```
-
-### `<login>`
-
-Along the lines of the [`<search>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/search) element, we'd introduce a `<login>` element:
-
-```html
-<login type="federated" 
-  callback="callback"
-  clientId="1234" 
-  configURL="https://idp.example/config.json">
-    <a href="https://idp.example/oauth?...">Sign-in with IdP</a>
-</login>
-```
 
 ### ARIA `role="login"`
 
@@ -104,30 +93,6 @@ This is a variation to augument `role` with an additional landmak, `login`, akin
   Sign-in with X
 </span>
 ```
-
-### Mediation: `conditional`
-
-In this variation, we use the `mediation="conditional"` parameter to let the agent operate in the unresolved promise.
-
-```javascript
-const {token} = await navigator.credentials.get({
-  mediation: "conditional",
-  identity: { /** ... params ... */ }
-});
-```
-### `meta` tags
-
-In this variation we’d use the <meta> tag disassociated with the element to be clicked.
-
-```html
-<meta http-equiv="Federated-Authentication" 
-  content="client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\""
->
-<script>
-document.addEventListener("login", ({token}) => login(token));
-</script>
-```
-
 ### Microdata
 
 This proposal is to introduce to LoginAction a property called `federation` which describes what the FedCM request would be.
@@ -171,6 +136,41 @@ The invocation of the action occurs via a DOM event:
 document.addEventListener("action", ({type, federation: {token}}) => login(token));
 ```
 
+### Mediation: `conditional`
+
+In this variation, we use the `mediation="conditional"` parameter to let the agent operate in the unresolved promise.
+
+```javascript
+const {token} = await navigator.credentials.get({
+  mediation: "conditional",
+  identity: { /** ... params ... */ }
+});
+```
+
+### `<permission type="login">`
+
+We could extend the [PEPC element](https://github.com/WICG/PEPC/blob/main/explainer.md) to introduce a `type="login"` parameter.
+
+```html
+<permission type="login" federation="clientId='1234', configURL='https://idp.example/config.json'">
+   <a href="https://idp.example/oauth?...">Sign-in with IdP</a>  
+</permission>
+```
+
+### `meta` tags
+
+In this variation we’d use the <meta> tag disassociated with the element to be clicked.
+
+```html
+<meta http-equiv="Federated-Authentication" 
+  content="client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\""
+>
+<script>
+document.addEventListener("login", ({token}) => login(token));
+</script>
+```
+
+
 ## Alternatives Considered
 
 ### Overload WWW-Authenticate
@@ -190,6 +190,16 @@ Cons:
 
 - Are there better ways to invoke the action other than events? Maybe `onaction` callbacks?
 - Should this support also Passwords/Passkeys too?
+
+### Login page discovery
+
+When agents get to a website and want to login the user to it, they need to first find the login page in the first place. This often involves a series of heuristics and computer vision, but the developer can help the agent find it with the following convention:
+
+```html
+<link rel="login" href="login.html">
+```
+
+(see alternatives considered for things like a .well-known file and other ways we can accomplish this)
 
 ### Usernames/Passwords (or Passkeys)
 
