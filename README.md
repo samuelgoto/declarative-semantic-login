@@ -8,9 +8,9 @@ TL;DR; This is a proposal to allows website authors to declare to agentic browse
 
 ## Problem Statement
 
-Users of the web are increasingly using agentic browsers to complete their journeys. Many of these journeys involve logging in to websites with the user's passwords and federated accounts, the two most popular login mechanisms on the web today. 
+Users of the web are increasingly using agentic browsers to complete their journeys. Many of these journeys involve logging in to websites with the user's passwords and federated accounts, the two most common login mechanisms on the web today.
 
-To browse and log users in, agentic browsers have developed a statistical LLM model that gives them a broad (but non-deterministic) understanding of web pages, enough to allow them to click on links and fill forms to assist the user through the process. 
+To retrofit and log users in the existing content, agentic browsers have developed a statistical LLM model that gives them a broad (but non-deterministic) understanding of web pages and login forms, enough to allow them to click on links and fill forms to assist the user through the process. 
 
 Unfortunately, the same statistical design choice that brings the broad generalization and coverage also brings lower precision and recall compared to structured / deterministic APIs that are opted-into by website owners.
 
