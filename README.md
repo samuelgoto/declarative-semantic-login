@@ -45,9 +45,9 @@ There are many conflicting goals that we are navigating, but here are a few that
 
 # Proposal
 
-The proposal is to introduce `<login>` element (along with a `<federation>` and `<passkey>` elements and more to follow) that can declaratively describe an imperative Credential Management API call.
+The proposal is to introduce a `<login>` element (along with a `<federation>` and `<passkey>` elements and more to follow) that can declaratively describe an imperative Credential Management API call, along the lines of `<geolocation>`.
 
-The `<login>` element's semantics are simliar to `<a>`: it is an inline element that renders its inner contents and performs an action `onclick`.
+We are still trying to figure out what are the right semantics, but one intuition is that `<login>` could work like `<a>` elements: an inline element that renders its inner contents and performs an action when users click on it.
 
 The intention is to replace the typical "login" links that show up on the top right corner of websites with the following:
 
@@ -56,7 +56,7 @@ The intention is to replace the typical "login" links that show up on the top ri
   <passkey challenge="1234" rpId="example.com" userVerification="preferred" timeout="60000"></passkey>
   <federation clientId="1234" configURL="https://idp1.example/config"></federation>
   <federation clientId="5678" configURL="https://idp2.example/config"></federation>
-  login
+  <a href="login.html">login</a>
 </login>
 ```
 
@@ -64,13 +64,13 @@ When clicked, a modal dialog is shown, with a browser mediated unified account c
 
 # Sequencing
 
-There is an overall belief that, while this seems like a plausible end state, it is likely that we can't quite reach it from where we are: [`immediate mediation`](https://github.com/w3ctag/design-reviews/issues/1092) is still unresolved and the developer demand for a unified account chooser is still in its infancy.
+There is an overall belief that, while this seems a unified modal dialog for login seems like a plausible end state, it is likely that we can't quite reach it from where we are today in 2026: [`immediate mediation`](https://github.com/w3ctag/design-reviews/issues/1092) is still unresolved and the developer demand for a unified account chooser is still in its infancy.
 
 Agentic browsing, on the other hand, is testing the limits of the Web Platform and is currently strugging to log users into websites safely.
 
-One way that occurred to us that we could kick start this process is to wrap the individual options in the NASCAR flag, rather than the NASCAR flag as a whole.
+One way that occurred to us that we could bootstrap this process is to wrap the individual options in the NASCAR flag, rather than the NASCAR flag as a whole.
 
-So, for example, for passkeys buttons:
+So, for example, as opposed to replacing the "login" top-right-corner links, we'd replace the individual passkeys buttons in the NASCAR flag:
 
 ```html
 <login onselect="login()">
@@ -88,7 +88,7 @@ And the following for social login buttons:
 </login>
 ```
 
-This would allow us to introduce `<login>` and `<federation>` for each of these individual mechanisms while working towards a unified UI for all of them.
+This would allow us to introduce `<login>` and `<federation>` for each of these individual mechanisms while working our way towards a unified UI for all of them, and ultimately replace the top-right-corner login links.
 
 # Open Questions
 
