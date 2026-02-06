@@ -48,7 +48,7 @@ And degrades gracefully to the following in browsers without native support:
 
 One of the most common patterns on the Web is to allow users to login to websites.
 
-Login typically starts with a "login" link, common available on the top-right corner of websites which usually leads to what's known as the NASCAR flag UI:
+Login typically starts with a "login" link, commonly available on the top-right corner of websites which usually leads to what's known as the NASCAR flag UI:
 <img src="https://github.com/user-attachments/assets/e4f133c4-66c6-4f8f-9552-b7cc99d118ec" />
 When users interact with the NASCAR flag UI, they have to guess what to use between the various options: do I have a passkey? a password? or did I click in one of these social login options before?
 
